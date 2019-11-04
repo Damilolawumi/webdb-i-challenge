@@ -32,11 +32,27 @@ router.post('/', async (req, res) => {
             name: req.body.name,
             budget: req.body.budget,
         })
-        res.json('New post was created with an id of' + account[0]);
+        res.json('New post was created with an id of ' + account[0]);
     } catch(error) {
         res.status(500).json({ message: 'this definately went wrong' + error.message });
     }
 });
+
+router.put('/:id', (req, res) => {
+    db('accounts').where({ id: req.params.id })
+    .update({
+        name: req.body.name,
+        budget: req.body.budget,
+    })
+    .then(updatedAccount => {
+        res.json(updatedAccount + ' record got updated'); 
+    })
+    .catch(error => {
+        res.status(500).json({ message: 'this went wrong ' + error.message });
+    });
+});
+
+
 
 
 module.exports = router

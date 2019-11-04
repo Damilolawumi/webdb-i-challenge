@@ -25,4 +25,18 @@ router.get('/:id', async (req, res) => {
 
 });
 
+router.post('/', async (req, res) => {
+    try{
+        const account = await db('accounts')
+        .insert({
+            name: req.body.name,
+            budget: req.body.budget,
+        })
+        res.json('New post was created with an id of' + account[0]);
+    } catch(error) {
+        res.status(500).json({ message: 'this definately went wrong' + error.message });
+    }
+});
+
+
 module.exports = router

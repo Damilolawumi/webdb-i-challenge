@@ -52,6 +52,15 @@ router.put('/:id', (req, res) => {
     });
 });
 
+router.delete('/:id', (req, res) => {
+    db('accounts').where({ id: req.params.id }).del()
+    .then(accountDel => {
+        res.json(accountDel + 'account got deleted!!');
+    })
+    .catch(error => {
+        res.status(500).json('this went wrong: ' + error.message)
+    })
+});
 
 
 
